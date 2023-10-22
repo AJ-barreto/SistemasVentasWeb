@@ -20,15 +20,20 @@
             }
         </style>
     </head>
-    <body>
-        <div class="d-flex">
-            <div class="col-sm-4 parte01">
-                <div class="card">
+    <body style="background-color:powderblue;">
+        <div style="text-align:center;">
+            <img  src="https://static.vecteezy.com/system/resources/previews/018/868/624/non_2x/3d-sale-sign-shop-free-png.png" alt="Ventas" width="100"/>
+            <h1 style="color:blue; font-family:verdana; text-align:center; ">SISTEMA DE VENTAS</h1>
+        </div>
+        <div class="d-flex" style="align-items: center; justify-content: center; display: flex;">
+            <div class="col-sm-4 parte01 " style="border: 5px outset saddlebrown; background-color: lightblue; text-align: center; margin-left: 20px">
+                <div class="card" >
                     <form action="Controlador?menu=RegistrarVenta" method="POST">
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Datos del cliente</label>
                             </div>
+                            <br>
                             <div class="form-group d-flex">
                                 <div class="col-sm-4 d-flex">
                                     <input type="text" name="codigocliente" value="${c.getDni()}" class="form-control" placeholder="Codigo">
@@ -38,9 +43,11 @@
                                     <input type="text" name="nombrescliente" value="${c.getNom()}" placeholder="Datos Cliente" class="form-control">
                                 </div>
                             </div>
+                                <br>
                             <div class="form-group">
                                 <label>Datos Producto</label>
                             </div>
+                                <br>
                             <div class="form-group d-flex">
                                 <div class="col-sm-4 d-flex">
                                     <input type="text" name="codigoproducto" value="${producto.getId()}" class="form-control" placeholder="Codigo">
@@ -61,6 +68,7 @@
                                     <input type="text" name="stock" value="${producto.getStock()}" placeholder="Stock" class="form-control">
                                 </div>
                             </div>
+                                <br>
                             <div class="form-group">
                                 <button type="submit" name="accion" value="Agregar" class="btn btn-outline-info">Agregar Producto</button>
                             </div>
@@ -68,7 +76,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-sm-7">
+            <div class="col-sm-7" style="margin: 20px; border: 5px outset saddlebrown; background-color: lightblue; text-align: center;">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex col-sm-6 ml-auto">

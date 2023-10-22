@@ -12,14 +12,15 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <title>Inicio</title>
     </head>
-    <body>
+    <body style="background-image: url('https://img.europapress.es/fotoweb/fotonoticia_20220203180227_420.jpg'); background-repeat: no-repeat; background-attachment: fixed;  background-size: 100% 100%;" alt="Imagen de la empresa">
         <div class="container mt-4 col-lg-4">
             <div class="card col-sm-10">
                 <div class="card-body">
                     <form class="form-sign" action="Validar" method="POST">
                         <div class="form-group text-center">
                             <h3>Login</h3>
-                            <img src="https://media.tenor.com/jNaE0MKsTnQAAAAd/mapache-comiendo.gif" alt="70" width="170"/>
+                            <img src="https://media.tenor.com/jNaE0MKsTnQAAAAd/mapache-comiendo.gif" alt="Mapache" width="170">
+                            <br>
                             <label>Bienvenidos al Sistema</label>
                         </div>
                         <div class="form-group">
@@ -30,7 +31,8 @@
                             <label>Password:</label>
                             <input type="password" name="txtpass" class="form-control">
                         </div>
-                        <input type="submit" name="accion" value="Ingresar" class="btn btn-primary btn-block">
+                        <br>
+                        <input type="submit" name="accion" value="Ingresar" class="btn btn-primary btn-block" style="margin-left: 40%;">
                     </form>
                 </div> 
             </div>

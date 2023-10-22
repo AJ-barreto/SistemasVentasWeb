@@ -11,12 +11,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Empleado</title>
     </head>
-    <body>
-        <div class="d-flex">
-            <div class="card" col-sm-6>
-                <div class="card-body">
+    <body style="background-color:powderblue;">
+        <div style="text-align:center;">
+            <img  src="https://cdn-icons-png.flaticon.com/512/2830/2830573.png" alt="Empleados" width="100"/>
+            <h1 style="color:blue; font-family:verdana; text-align:center; ">SISTEMA DE EMPLEADOS</h1>
+        </div>
+        <div class="d-flex" style="align-items: center; justify-content: center; display: flex;">
+            <div class="card" col-sm-6 style="border: 5px outset lightblue; background-color: lightblue; text-align: center; margin-left: 20px">
+                <div class="card-body" style="border: 5px outset white;">
                     <form action="Controlador?menu=Empleado" method="POST">
                         <div class="form-group">
                             <label>Dni</label>
@@ -38,12 +42,15 @@
                             <label>Usuario</label>
                             <input type="text" value="${empleado.getUser()}" name="txtUsuario" class="form-control">
                         </div>
-                        <input type="submit" name="accion" value="Agregar" class="btn btn-info">
-                        <input type="submit" name="accion" value="Actualizar" class="btn btn-success">
+                        <br>
+                        <center>
+                            <input type="submit" name="accion" value="Agregar" class="btn btn-info">
+                            <input type="submit" name="accion" value="Actualizar" class="btn btn-success">
+                        </center>
                     </form>
                 </div>
             </div>
-            <div class="col-ms-8">
+            <div class="col-ms-8" style="border: 5px outset saddlebrown; background-color: white; margin: 20px">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -57,21 +64,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="em" items="${empleados}">
-                        <tr>
-                            <td>${em.getId()}</td>
-                            <td>${em.getDni()}</td>
-                            <td>${em.getNom()}</td>
-                            <td>${em.getTel()}</td>
-                            <td>${em.getEstado()}</td>
-                            <td>${em.getUser()}</td>
-                            <td>
-                                <a class="btn btn-warning" href="Controlador?menu=Empleado&accion=Editar&id=${em.getId()}">Editar</a>
-                                <a class="btn btn-danger" href="Controlador?menu=Empleado&accion=Delete&id=${em.getId()}">Eliminar</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                        
+                        <c:forEach var="em" items="${empleados}">
+                            <tr>
+                                <td>${em.getId()}</td>
+                                <td>${em.getDni()}</td>
+                                <td>${em.getNom()}</td>
+                                <td>${em.getTel()}</td>
+                                <td>${em.getEstado()}</td>
+                                <td>${em.getUser()}</td>
+                                <td>
+                                    <a class="btn btn-warning" href="Controlador?menu=Empleado&accion=Editar&id=${em.getId()}">Editar</a>
+                                    <a class="btn btn-danger" href="Controlador?menu=Empleado&accion=Delete&id=${em.getId()}">Eliminar</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+
                     </tbody>
                 </table>
             </div>
