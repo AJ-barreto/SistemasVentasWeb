@@ -14,12 +14,16 @@ import Modelo.Venta;
 import Modelo.VentaDAO;
 import config.GenerarSerie;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -67,7 +71,15 @@ public class Controlador extends HttpServlet {
             throws ServletException, IOException {
         String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
+        HttpSession sesion = request.getSession();
+        System.out.println("sesio numero en CONTROLADOR: "+sesion.getId());
+        Empleado us = (Empleado) sesion.getAttribute("usuario");
+        System.out.println("este es US en CONTROLADOR: "+us);
+        if(us!=null)
+        {
+            System.out.println("este es US en CONTROLADOR IF: "+us);
         if (menu.equals("Principal")) {
+            System.out.println("sesio numero CONTROLADOR PRINCIPAL: "+sesion.getId());
             request.getRequestDispatcher("Principal.jsp").forward(request, response);
         }
         if (menu.equals("Home")) {
@@ -81,11 +93,14 @@ public class Controlador extends HttpServlet {
                     break;
                 case "Agregar":
                     String dni = request.getParameter("txtDni");
+                    String contra = request.getParameter("txtContra");
                     String nom = request.getParameter("txtNombres");
                     String tel = request.getParameter("txtTel");
                     String est = request.getParameter("txtestado");
                     String user = request.getParameter("txtUsuario");
+                    String contraSegura = asegurarClave(contra);
                     em.setDni(dni);
+                    em.setContra(contraSegura);
                     em.setNom(nom);
                     em.setTel(tel);
                     em.setEstado(est);
@@ -103,11 +118,14 @@ public class Controlador extends HttpServlet {
                 case "Actualizar":
                     System.out.println("ENTRA EN ACTUALIZAR 2");
                     String dni1 = request.getParameter("txtDni");
+                    String contra1 = request.getParameter("txtContra");
                     String nom1 = request.getParameter("txtNombres");
                     String tel1 = request.getParameter("txtTel");
                     String est1 = request.getParameter("txtestado");
                     String user1 = request.getParameter("txtUsuario");
+                    String contraSegura1 = asegurarClave(contra1);
                     em.setDni(dni1);
+                    em.setContra(contraSegura1);
                     em.setNom(nom1);
                     em.setTel(tel1);
                     em.setEstado(est1);
@@ -282,6 +300,7 @@ public class Controlador extends HttpServlet {
                         int sac = pr.getStock() - cantidad;
                         aO.actualizarStock(idproducto, sac);
                     }
+                    Date date = new Date();  
                     //GUARDAR VENTA
                     v.setIdcliente(cl.getId());
                     v.setIdempleado(2);
@@ -315,10 +334,29 @@ public class Controlador extends HttpServlet {
                         numeroserie = gs.NumeroSerie(incrementar);
                         request.setAttribute("nserie", numeroserie);
                     }
+                    request.setAttribute("nserie", numeroserie);
                     request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
             }
             request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
+        } 
+    } else{
+    request.getRequestDispatcher("index.jsp").forward(request, response);
+}
+    }
+    
+    private String asegurarClave(String textoClaro){
+        String claveSha = null;
+        
+        try {
+            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+            sha256.update(textoClaro.getBytes());
+            claveSha = Base64.getEncoder().encodeToString(sha256.digest());
+            System.out.println("CLAVESHA = "+claveSha);
+            System.out.println("LONGITUD: "+claveSha.length());
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println("ERROR EN INSTANCIAR 256"+ ex.getMessage());
         }
+        return claveSha;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

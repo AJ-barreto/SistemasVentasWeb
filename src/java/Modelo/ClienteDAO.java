@@ -54,7 +54,8 @@ public class ClienteDAO {
                 c.setDir(rs.getString(4));
                 c.setEstado(rs.getString(5));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN CDAO1: "+e.getMessage());
         }
         return c;
     }
@@ -77,7 +78,8 @@ public class ClienteDAO {
                 em.setEstado(rs.getString(5));
                 lista.add(em);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN CDAO2: "+e.getMessage());
         }
         return lista;
     }
@@ -92,7 +94,8 @@ public class ClienteDAO {
             ps.setString(3, em.getDir());
             ps.setString(4, em.getEstado());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN CDAO3: "+e.getMessage());
         }
         return respuesta;
     }
@@ -110,7 +113,8 @@ public class ClienteDAO {
                 emp.setDir(rs.getString(4));
                 emp.setEstado(rs.getString(5));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN CDAO4: "+e.getMessage());
         }
         return emp;
     }
@@ -126,7 +130,8 @@ public class ClienteDAO {
             ps.setString(4, em.getEstado());
             ps.setInt(5, em.getId());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN CDAO5: "+e.getMessage());
         }
         return respuesta;
     }
@@ -137,7 +142,8 @@ public class ClienteDAO {
             con=cn.Conexion();
             ps=con.prepareStatement(sql);
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN CDAO6: "+e.getMessage());
         }
     }
 }

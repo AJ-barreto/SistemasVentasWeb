@@ -16,7 +16,7 @@ public class Conexion {
     
     String usuario = "postgres";
     String contrasena = "123456";
-    String bd = "bd_ventas";
+    String bd = "ava2";
     String ip = "localhost";
     String puerto = "5432";
       
@@ -25,7 +25,8 @@ public class Conexion {
         try {
             Class.forName("org.postgresql.Driver");
             con = (Connection) DriverManager.getConnection(cadena,usuario,contrasena);
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("ERROR EN CONEXION: "+e.getMessage());
         }
         return con;
     }

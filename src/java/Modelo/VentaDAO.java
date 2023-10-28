@@ -8,6 +8,8 @@ import config.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.apache.taglibs.standard.tag.el.fmt.ParseDateTag;
 
 /**
  *
@@ -30,7 +32,8 @@ public class VentaDAO {
             while(rs.next()){
                 numeroserie=rs.getString(1);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN VDAO1: "+e.getMessage());
         }
         return numeroserie;
     }
@@ -46,7 +49,8 @@ public class VentaDAO {
                 idventas=rs.getString(1);
                 
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN VDAO2: "+e.getMessage());
         }
         return idventas;
     }
@@ -64,7 +68,8 @@ public class VentaDAO {
             ps.setDouble(5, ve.getPrecio());
             ps.setString(6, ve.getEstado());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN VDAO3: "+e.getMessage());
         }
         return r;
     }
@@ -79,7 +84,8 @@ public class VentaDAO {
             ps.setInt(3, ve.getCantidad());
             ps.setDouble(4, ve.getPrecio());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN VDAO4: "+e.getMessage());
         }
         return r;
     }

@@ -5,6 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import = "Modelo.Empleado" %>
+<% HttpSession sesion=request.getSession();
+Empleado emp = (Empleado) sesion.getAttribute("usuario");
+System.out.println("este es EMPLEADO EMP en PRINCIPAL: "+emp.getId());
+if(emp!=null){
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,7 +25,7 @@
                     <li class="nav-item" class="d-flex">
                         <img src="https://static.vecteezy.com/system/resources/previews/010/151/174/non_2x/house-and-home-icon-symbol-sign-free-png.png" alt="Casa" width="30" align="right">
                         <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=Home" target="myFrame">Home</a>
-                    </li>
+                    </li>                                                                                                                   
                     <li class="nav-item">
                         <img src="https://cdn-icons-png.flaticon.com/512/5988/5988411.png" alt="Casa" width="30" align="right">
                         <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=Producto&accion=Listar" target="myFrame">Producto</a>
@@ -45,7 +51,7 @@
                         <li><a class="dropdown-item" href="#">${usuario.getUser()}</a></li>
                         <li><a class="dropdown-item" href="#">usuario@gmail.com</a></li>
                         <li><div class="dropdown-divider"></div></li>
-                        <form action="Validar" method="">
+                        <form action="Validar" method="POST">
                             <button name="accion" value="Salir" class="dropdown-item" herf="#">salir</button>
                         </form>
                     </ul>
@@ -63,5 +69,12 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     </body>
 </html>
+<%
+    } else{
+request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+}
+%>

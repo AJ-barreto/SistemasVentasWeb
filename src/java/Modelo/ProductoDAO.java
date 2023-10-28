@@ -54,7 +54,8 @@ public class ProductoDAO {
                 p.setStock(rs.getInt(4));
                 p.setEstado(rs.getString(5));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN PDAO1: "+e.getMessage());
         }
         return p;
     }
@@ -67,7 +68,8 @@ public class ProductoDAO {
             ps.setInt(1, stock);
             ps.setInt(2, id);
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN PDAO2: "+e.getMessage());
         }
         return respuesta;
     }
@@ -90,7 +92,8 @@ public class ProductoDAO {
                 em.setEstado(rs.getString(5));
                 lista.add(em);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN PDAO3: "+e.getMessage());
         }
         return lista;
     }
@@ -105,7 +108,8 @@ public class ProductoDAO {
             ps.setInt(3, em.getStock());
             ps.setString(4, em.getEstado());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN PDAO4: "+e.getMessage());
         }
         return respuesta;
     }
@@ -124,7 +128,8 @@ public class ProductoDAO {
                 emp.setStock(rs.getInt(4));
                 emp.setEstado(rs.getString(5));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN PDAO5: "+e.getMessage());
         }
         return emp;
     }
@@ -140,7 +145,8 @@ public class ProductoDAO {
             ps.setString(4, em.getEstado());
             ps.setInt(5, em.getId());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN PDAO6: "+e.getMessage());
         }
         return respuesta;
     }
@@ -151,7 +157,8 @@ public class ProductoDAO {
             con=cn.Conexion();
             ps=con.prepareStatement(sql);
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN PDAO7: "+e.getMessage());
         }
     }
 }

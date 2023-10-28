@@ -19,23 +19,25 @@ public class EmpleadoDAO {
     ResultSet rs;
     int respuesta;
     
-    public Empleado validar(String user, String dni){
+    public Empleado validar(Empleado item){
         Empleado em = new Empleado();
-        String sql = "select * from empleado where usuario=? and Dni=?";
+        String sql = "select * from empleado where usuario=? and contra=?";
         try {
             con = (Connection) cn.Conexion();
             ps = con.prepareStatement(sql);
-            ps.setString(1, user);
-            ps.setString(2, dni);
+            ps.setString(1, item.getUser());
+            ps.setString(2, item.getContra());
             rs=ps.executeQuery();
             while(rs.next()){
                 em.setId(rs.getInt("idEmpleado"));
+                em.setContra(rs.getString("contra"));
                 em.setUser(rs.getString("usuario"));
                 em.setDni(rs.getString("Dni"));
                 em.setNom(rs.getString("Nombres"));
             }
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN EDAO1: "+e.getMessage());
         }
         return em;
     }
@@ -53,29 +55,33 @@ public class EmpleadoDAO {
                 Empleado em = new Empleado();
                 em.setId(rs.getInt(1));
                 em.setDni(rs.getString(2));
-                em.setNom(rs.getString(3));
-                em.setTel(rs.getString(4));
-                em.setEstado(rs.getString(5));
-                em.setUser(rs.getString(6));
+                em.setContra(rs.getString(3));
+                em.setNom(rs.getString(4));
+                em.setTel(rs.getString(5));
+                em.setEstado(rs.getString(6));
+                em.setUser(rs.getString(7));
                 lista.add(em);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN EDAO2: "+e.getMessage());
         }
         return lista;
     }
     
     public int agregar(Empleado em){
-        String sql="insert into empleado(Dni, Nombres, Telefono,Estado,Usuario)values(?,?,?,?,?)";
+        String sql="insert into empleado(Dni, contra, Nombres, Telefono,Estado,Usuario)values(?,?,?,?,?,?)";
         try {
             con=cn.Conexion();
             ps=con.prepareStatement(sql);
             ps.setString(1, em.getDni());
-            ps.setString(2, em.getNom());
-            ps.setString(3, em.getTel());
-            ps.setString(4, em.getEstado());
-            ps.setString(5, em.getUser());
+            ps.setString(2,em.getContra());
+            ps.setString(3, em.getNom());
+            ps.setString(4, em.getTel());
+            ps.setString(5, em.getEstado());
+            ps.setString(6, em.getUser());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN EDAO3: "+e.getMessage());
         }
         return respuesta;
     }
@@ -89,29 +95,33 @@ public class EmpleadoDAO {
             rs=ps.executeQuery();
             while(rs.next()){
                 emp.setDni(rs.getString(2));
-                emp.setNom(rs.getString(3));
-                emp.setTel(rs.getString(4));
-                emp.setEstado(rs.getString(5));
-                emp.setUser(rs.getString(6));
+                emp.setDni(rs.getString(3));
+                emp.setNom(rs.getString(4));
+                emp.setTel(rs.getString(5));
+                emp.setEstado(rs.getString(6));
+                emp.setUser(rs.getString(7));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN EDAO4: "+e.getMessage());
         }
         return emp;
     }
     
     public int actualizar(Empleado em){
-        String sql="update empleado set Dni=?, Nombres=?, Telefono=?,Estado=?,Usuario=? where idEmpleado=?";
+        String sql="update empleado set Dni=?, contra=?, Nombres=?, Telefono=?,Estado=?,Usuario=? where idEmpleado=?";
         try {
             con=cn.Conexion();
             ps=con.prepareStatement(sql);
             ps.setString(1, em.getDni());
-            ps.setString(2, em.getNom());
-            ps.setString(3, em.getTel());
-            ps.setString(4, em.getEstado());
-            ps.setString(5, em.getUser());
-            ps.setInt(6, em.getId());
+            ps.setString(2, em.getContra());
+            ps.setString(3, em.getNom());
+            ps.setString(4, em.getTel());
+            ps.setString(5, em.getEstado());
+            ps.setString(6, em.getUser());
+            ps.setInt(7, em.getId());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN EDAO5: "+e.getMessage());
         }
         return respuesta;
     }
@@ -122,7 +132,8 @@ public class EmpleadoDAO {
             con=cn.Conexion();
             ps=con.prepareStatement(sql);
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("ERROR EN EDAO6: "+e.getMessage());
         }
     }
 }

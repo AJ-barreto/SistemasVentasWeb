@@ -11,6 +11,7 @@ package Modelo;
 public class Empleado {
     int id;
     String dni;
+    String contra;
     String nom;
     String tel;
     String estado;
@@ -19,9 +20,10 @@ public class Empleado {
     public Empleado() {
     }
 
-    public Empleado(int id, String dni, String nom, String tel, String estado, String user) {
+    public Empleado(int id, String dni, String contra, String nom, String tel, String estado, String user) {
         this.id = id;
         this.dni = dni;
+        this.contra = contra;
         this.nom = nom;
         this.tel = tel;
         this.estado = estado;
@@ -44,6 +46,14 @@ public class Empleado {
         this.dni = dni;
     }
 
+    public String getContra() {
+        return contra;
+    }
+
+    public void setContra(String contra) {
+        this.contra = contra;
+    }
+    
     public String getNom() {
         return nom;
     }

@@ -5,6 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import = "Modelo.Empleado" %>
+<% HttpSession sesion=request.getSession();
+Empleado emp = (Empleado) sesion.getAttribute("usuario");
+if(emp!=null){
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,3 +32,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     </body>
 </html>
+<%
+    } else{
+request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+}
+%>

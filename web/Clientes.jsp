@@ -6,6 +6,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import = "Modelo.Empleado" %>
+<% HttpSession sesion=request.getSession();
+Empleado emp = (Empleado) sesion.getAttribute("usuario");
+System.out.println("este es EMP en CLIENTE "+ emp);
+if(emp!=null){
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -67,8 +73,8 @@
                                 <td>${cl.getDir()}</td>
                                 <td>${cl.getEstado()}</td>
                                 <td>
-                                    <a class="btn btn-warning" href="Controlador?menu=Empleado&accion=Editar&id=${cl.getId()}">Editar</a>
-                                    <a class="btn btn-danger" href="Controlador?menu=Empleado&accion=Delete&id=${cl.getId()}">Eliminar</a>
+                                    <a class="btn btn-warning" href="Controlador?menu=Clientes&accion=Editar&id=${cl.getId()}">Editar</a>
+                                    <a class="btn btn-danger" href="Controlador?menu=Clientes&accion=Delete&id=${cl.getId()}">Eliminar</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -83,3 +89,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     </body>
 </html>
+<%
+    } else{
+request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+}
+%>

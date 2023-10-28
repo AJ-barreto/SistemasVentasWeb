@@ -12,6 +12,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 /**
  *
@@ -73,22 +77,52 @@ public class Validar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //HttpSession sesion = null;
         //processRequest(request, response);
         String accion=request.getParameter("accion");
+        if(accion.equalsIgnoreCase("Salir")){
+            //sesion.removeAttribute("usuario");
+            //sesion.invalidate();
+            request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+        }
         if(accion.equalsIgnoreCase("Ingresar")){
             String user=request.getParameter("txtuser");
-            String pass=request.getParameter("txtpass");
-            em=edao.validar(user, pass);
+            String pass=asegurarClave(request.getParameter("txtpass"));
+            Empleado item = new Empleado();
+            item.setUser(user);
+            item.setContra(pass);
+            em=edao.validar(item);
             if(em.getUser()!=null){
+                HttpSession sesion = request.getSession();
+                System.out.println("sesio numero: "+sesion.getId());
+                sesion.setAttribute("usuario", em);
                 request.setAttribute("usuario", em);
                 request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
-                return;
+                
+                //sesion.removeAttribute("usuario");
+                //sesion.invalidate();
+                
             } else{
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
             }
         } else{
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
         }
+    }
+    
+    private String asegurarClave(String textoClaro){
+        String claveSha = null;
+        
+        try {
+            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+            sha256.update(textoClaro.getBytes());
+            claveSha = Base64.getEncoder().encodeToString(sha256.digest());
+            System.out.println("CLAVESHA = "+claveSha);
+            System.out.println("LONGITUD: "+claveSha.length());
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println("ERROR EN INSTANCIAR 256"+ ex.getMessage());
+        }
+        return claveSha;
     }
 
     /**
